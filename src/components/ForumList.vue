@@ -14,7 +14,8 @@
           params:{
             id: forum.id
           }
-        }">{{ forum.name }}</RouterLink>
+        }">{{ forum.name }}
+          </RouterLink>
           <p>{{ forum.description }}</p>
         </div>
 
@@ -36,14 +37,22 @@
 <script>
 export default {
   name: "ForumList",
-  props:{
-    forums:{
+  props: {
+    forums: {
       type: Array,
       required: true
-    }
+    },
+    title: {
+      type: String,
+      default: 'Forums'
+    },
+    categoryId: {
+      required: false,
+      type: String
+    },
   },
-  methods:{
-    forumThreadsWord(forum){
+  methods: {
+    forumThreadsWord(forum) {
       if (forum.threads) {
         return forum.threads?.length > 1 ? 'threads' : 'thread'
       } else {
