@@ -1,7 +1,11 @@
 <template>
   <div className="col-large push-top">
-    <h1>{{ thread.title }}</h1>
-
+    <h1>
+      {{ thread.title }}
+      <RouterLink :to="{ name: 'ThreadEdit', id: this.id }">
+        <button class="btn-green btn-small">Edit Thread</button>
+      </RouterLink>
+    </h1>
     <PostList :posts="threadPosts"/>
     <PostEditor @save="addPost"/>
   </div>
@@ -25,13 +29,13 @@ export default {
   },
 
   computed: {
-    threads () {
+    threads() {
       return this.$store.state.threads
     },
-    posts () {
+    posts() {
       return this.$store.state.posts
     },
-    thread () {
+    thread() {
       return this.threads.find(thread => thread.id === this.id) // also available under this.$route.params.id
     },
     threadPosts() {

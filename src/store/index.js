@@ -47,13 +47,39 @@ export default createStore({
             commit('appendThreadToUser',  {userId, threadId: id})
             commit('appendThreadToForum',  {threadId: id, forumId})
             dispatch('createPost', {text, threadId: id})
-            //commit('appendPostToThread', {postId, threadId: id})
+
             return state.threads.find(thread => thread.id === id)
+        },
+
+        async updateThread({commit, state}, {text, title, id}) {
+
+            const thread = state.threads.find(thread => thread.id === id)
+            const post = state.posts.find(post => post.id === thread.posts[0])
+            const newThread = {...thread, title}
+            const newPost = {...post, text}
+
+            commit('setThread', {thread: newThread})
+            commit('setPost', {post: newPost})
+
+            return newThread
         }
     },
     mutations: {
         setPost(state, {post}) {
-            state.posts.push(post)
+            const postIndex = state.posts.findIndex(p => p.id === post.id)
+            if(post.id && postIndex !== -1){
+                state.posts[postIndex] = post
+            }else{
+                state.posts.push(post)
+            }
+        },
+        setThread(state, {thread}) {
+            const threadIndex = state.threads.findIndex(t => t.id === thread.id)
+            if(thread.id && threadIndex !== -1){
+                state.threads[threadIndex] = thread
+            }else{
+                state.threads.push(thread)
+            }
         },
         setUser(state, {user, userId}) {
             const userIndex = state.users.findIndex(user => user.id === userId)
@@ -74,9 +100,7 @@ export default createStore({
             user.users = user.users || []
             user.users.push(threadId)
         },
-        setThread(state, {thread}) {
-            state.threads.push(thread)
-        },
+
     }
 })
 

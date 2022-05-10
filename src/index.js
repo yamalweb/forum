@@ -7,7 +7,7 @@ import PageNotFound from '@/pages/NotFound';
 import sourceData from '@/data.json'
 import TheCategory from "@/pages/TheCategory";
 import TheProfile from "@/pages/TheProfile";
-//import ThreadCreate from "@/pages/ThreadCreate";
+import ThreadEdit from "@/pages/ThreadEdit";
 
 const routes = [
     {
@@ -64,9 +64,15 @@ const routes = [
         },
     },
     {
-        path: '/from/:forumId/thread/create',
+        path: '/forum/:forumId/thread/create',
         name: 'ThreadCreate',
         component: ThreadCreate,
+        props: true
+    },
+    {
+        path: '/thread/:id/edit',
+        name: 'ThreadEdit',
+        component: ThreadEdit,
         props: true
     },
     {
