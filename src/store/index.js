@@ -1,7 +1,13 @@
 import {createStore} from "vuex";
 import sourceData from "@/data"
 import {findById, upsert} from "@/helpers";
-
+const makeAppendChildToParentMutation = ({parent, child}) => {
+    return (state, {childId, parentId}) => {
+        const resource = findById(state[parent], parentId)
+        resource[child] = resource[child] || []
+        resource[child].push(childId)
+    }
+}
 
 export default createStore({
     state: {
@@ -86,10 +92,4 @@ export default createStore({
     }
 })
 
-const makeAppendChildToParentMutation = ({parent, child}) => {
-    return (state, {childId, parentId}) => {
-        const resource = findById(state[parent], parentId)
-        resource[child] = resource[child] || []
-        resource[child].push(childId)
-    }
-}
+
