@@ -12,7 +12,8 @@
           <img class="avatar-large" :src="userById(post.userId).avatar" alt="">
         </a>
 
-        <p class="desktop-only text-small">107 posts</p>
+        <p class="desktop-only text-small">{{userById(post.userId).postsCount}} posts</p>
+        <p class="desktop-only text-small">{{userById(post.userId).threadsCount}} threads</p>
 
       </div>
 
@@ -35,6 +36,7 @@
 </template>
 
 <script>
+
 export default {
   name: "PostList",
   props:{
@@ -51,7 +53,7 @@ export default {
   methods: {
 
     userById(userId) {
-      return this.users.find(p => p.id === userId)
+      return this.$store.getters.user(userId)
     },
 
   }

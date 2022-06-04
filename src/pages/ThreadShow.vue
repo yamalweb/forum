@@ -1,11 +1,15 @@
 <template>
-  <div className="col-large push-top">
+  <div class="col-large push-top">
     <h1>
       {{ thread.title }}
       <RouterLink :to="{ name: 'ThreadEdit', id: this.id }">
         <button class="btn-green btn-small">Edit Thread</button>
       </RouterLink>
     </h1>
+    <p>
+      By <a href="#" class="link-unstyled">{{thread.author.name}}</a>, <AppDate :timestamp="thread.publishedAt"/>.
+      <span style="float:right; margin-top: 2px;" class="hide-mobile text-faded text-small">{{thread.repliesCount}} replies by {{thread.contributorsCount}} contributors</span>
+    </p>
     <PostList :posts="threadPosts"/>
     <PostEditor @save="addPost"/>
   </div>
@@ -14,10 +18,12 @@
 <script>
 import PostList from '@/components/PostList'
 import PostEditor from '@/components/PostEditor'
+import AppDate from "@/components/AppDate";
 
 export default {
   name: 'ThreadShow',
   components: {
+    AppDate,
     PostList,
     PostEditor
   },
@@ -36,7 +42,7 @@ export default {
       return this.$store.state.posts
     },
     thread() {
-      return this.threads.find(thread => thread.id === this.id) // also available under this.$route.params.id
+      return this.$store.getters.thread(this.id)
     },
     threadPosts() {
       return this.posts.filter(post => post.threadId === this.id)
