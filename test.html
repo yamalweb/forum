@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <button id="run">Новая попытка</button>
+</div>
+<div id="result"></div>
+
+<script>
+    let isProcess = false;
+    elResult = document.querySelector('#result');
+
+    document.querySelector('#run').onclick = () => {
+        if (isProcess) {
+            elResult.textContent = 'Подождите! Задача ещё выполняется!';
+            return;
+        }
+        isProcess = true;
+        elResult.textContent = 'Задача в процессе...';
+        fetch('https://api.yamal-web.ru1/api/posts?populate=cover')
+            .then((resp) => elResult.textContent = resp.json())
+            .catch((error) => elResult.textContent = error)
+        isProcess = false;
+    }
+</script>
+</body>
+</html>

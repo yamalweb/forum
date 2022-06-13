@@ -15,7 +15,7 @@
     <!-- use .navbar-open to open nav -->
     <nav class="navbar">
       <ul>
-        <li class="navbar-user">
+        <li class="navbar-user" v-if="authUser">
           <RouterLink :to="{name: 'Profile'}">
             <img class="avatar-small" :src="authUser.avatar" :alt="`${authUser.name} profile name pic`">
             <span>
