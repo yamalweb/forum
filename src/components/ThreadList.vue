@@ -8,7 +8,7 @@
       <div v-for="thread in threads" :key="thread.id" class="thread">
         <div>
           <p>
-            <router-link :to="{name: 'ThreadShow', params: {id: thread.id}}">{{ thread.title }}</router-link>
+            <router-link v-if="thread.id" :to="{name: 'ThreadShow', params: {id: thread.id}}">{{ thread.title }}</router-link>
           </p>
           <p class="text-faded text-xsmall">
             By <a href="#">{{ userById(thread.userId).name }}</a>, <AppDate :timestamp="thread.publishedAt"/>.
@@ -56,7 +56,7 @@ export default {
       return this.posts.find(p => p.id === postId)
     },
     userById (userId) {
-      return this.users.find(p => p.id === userId)
+      return this.users.find(p => p.id === userId) || {}
     }
   }
 }

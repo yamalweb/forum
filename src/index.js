@@ -4,7 +4,6 @@ import PageThreadShow from "@/pages/ThreadShow";
 import ThreadCreate from "@/pages/ThreadCreate";
 import Forum from "@/pages/Forum";
 import PageNotFound from '@/pages/NotFound';
-import sourceData from '@/data.json'
 import TheCategory from "@/pages/TheCategory";
 import TheProfile from "@/pages/TheProfile";
 import ThreadEdit from "@/pages/ThreadEdit";
@@ -48,20 +47,20 @@ const routes = [
         name: 'ThreadShow',
         component: PageThreadShow,
         props: true,
-        beforeEnter: (to, from, next) => {
-            const threadExists = sourceData.threads.find(thread => thread.id === to.params.id)
-            if (threadExists) {
-                return next()
-            } else {
-                return next({
-                    name: 'NotFound',
-                    // preserve current path and remove the first char to avoid the target URL starting with `//`
-                    params: {pathMatch: to.path.substring(1).split('/')},
-                    query: to.query,
-                    hash: to.hash,
-                })
-            }
-        },
+        // beforeEnter: (to, from, next) => {
+        //     const threadExists = findById(sourceData.threads,to.params.id)
+        //     if (threadExists) {
+        //         return next()
+        //     } else {
+        //         return next({
+        //             name: 'NotFound',
+        //             // preserve current path and remove the first char to avoid the target URL starting with `//`
+        //             params: {pathMatch: to.path.substring(1).split('/')},
+        //             query: to.query,
+        //             hash: to.hash,
+        //         })
+        //     }
+        // },
     },
     {
         path: '/forum/:forumId/thread/create',

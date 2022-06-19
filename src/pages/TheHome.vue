@@ -6,6 +6,7 @@
 
 <script>
 import CategoryList from '@/components/CategoryList'
+import {mapActions} from "vuex";
 
 export default {
   components: {
@@ -16,27 +17,15 @@ export default {
       return this.$store.state.categories
     }
   },
-  async beforeCreate() {
-    const categories = await this.$store.dispatch('fetchAllCategories')
+  methods: {
+    ...mapActions(['fetchAllCategories', 'fetchForums'])
+  },
+  async created() {
+    const categories = await this.fetchAllCategories()
     const forumsIds = categories.map(category => category.forums).flat()
-    this.$store.dispatch('fetchForums', {ids: forumsIds})
+    this.fetchForums({ids: forumsIds})
 
     console.log('beforeCreate', this.categories)
-  },
-  created() {
-    console.log('created', this.categories)
-  },
-  beforeMount() {
-    console.log('beforeMount', this.categories)
-  },
-  mounted() {
-    console.log('mounted', this.$el)
-  },
-  beforeUnmount() {
-    console.log('beforeUnmount', this.categories, this.$el)
-  },
-  unmount() {
-    console.log('unmount', this.categories)
   },
 }
 </script>

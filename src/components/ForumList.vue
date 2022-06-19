@@ -3,7 +3,7 @@
     <div class="forum-list">
 
       <h2 class="list-title">
-        <router-link v-if="categoryId" :to="{name: 'Category', params: {id: categoryId}}">{{ title }}</router-link>
+        <RouterLink v-if="categoryId" :to="{name: 'Category', params: {id: categoryId}}">{{ title }}</RouterLink>
         <span v-else>{{ title }}</span>
       </h2>
 
