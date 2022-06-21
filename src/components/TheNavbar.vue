@@ -53,7 +53,7 @@ export default {
   name: "TheNavbar",
   computed: {
     ...mapGetters(['authUser'])
-  }
+  },
 }
 </script>
 
